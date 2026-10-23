@@ -1,58 +1,89 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚚 Logistics & Courier Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A backend for managing courier and logistics operations, built on **Laravel 13** with a **modular architecture** — each business domain lives in its own self-contained module.
 
-## About Laravel
+> 🚧 **Status: work in progress** — the project foundation (modular structure, roles & permissions, Auth module) is in place; business modules are being built.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![PHP](https://img.shields.io/badge/PHP-8.3+-777BB4?logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/Laravel-13-FF2D20?logo=laravel&logoColor=white)
+![Modules](https://img.shields.io/badge/Architecture-Modular-0e7490)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🏗 Architecture
 
-## Learning Laravel
+The application is a **modular monolith** powered by [`nwidart/laravel-modules`](https://github.com/nWidart/laravel-modules). Every module has its own controllers, routes, providers, migrations, seeders, views and tests, so domains stay isolated and easy to maintain.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+```text
+Modules/
+└── Auth/
+    ├── app/
+    │   ├── Http/Controllers/
+    │   └── Providers/          # module service, event & route providers
+    ├── config/
+    ├── database/
+    │   ├── migrations/
+    │   └── seeders/
+    ├── resources/views/
+    ├── routes/
+    │   ├── api.php             # versioned under /api/v1
+    │   └── web.php
+    ├── tests/
+    └── module.json
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+Modules are enabled or disabled in `modules_statuses.json`.
 
-## Contributing
+**Access control** is handled by [`spatie/laravel-permission`](https://github.com/spatie/laravel-permission) (roles & permissions tables).
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## 🛠 Tech Stack
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+| Layer | Technology |
+| :--- | :--- |
+| Language | PHP 8.3+ |
+| Framework | Laravel 13 |
+| Architecture | Modular monolith (`nwidart/laravel-modules`) |
+| Authorization | `spatie/laravel-permission` |
+| Database | MySQL / SQLite |
+| Code Style | Laravel Pint |
+| Testing | PHPUnit |
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## 🚀 Getting Started
 
-## License
+```bash
+# 1. Clone the repository
+git clone https://github.com/hasan123dayoub-del/Logistics-Courier-Management-System2.git
+cd Logistics-Courier-Management-System2
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+# 2. Install dependencies, create .env, generate the key, migrate and build assets
+composer run setup
+
+# 3. Start the development server
+php artisan serve
+```
+
+Useful commands:
+
+```bash
+php artisan module:list          # list modules and their status
+php artisan module:make Shipment # scaffold a new module
+php artisan test                 # run the test suite
+```
+
+---
+
+## 🗺 Roadmap
+
+- [x] Laravel 13 project setup
+- [x] Modular architecture
+- [x] Roles & permissions
+- [x] Auth module scaffold (`/api/v1`)
+- [ ] Authentication & user management
+- [ ] Shipments module
+- [ ] Couriers & assignments
+- [ ] Shipment tracking & status history
+- [ ] Reports & dashboard
